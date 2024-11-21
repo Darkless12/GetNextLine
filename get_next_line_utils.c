@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: darkless12 <darkless12@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ddiogo-f <ddiogo-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 13:41:39 by ddiogo-f          #+#    #+#             */
-/*   Updated: 2024/11/20 19:08:09 by darkless12       ###   ########.fr       */
+/*   Updated: 2024/11/21 16:32:04 by ddiogo-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,3 +57,34 @@ ssize_t	strlen_gnl(const char *str)
 	return (i);
 }
 
+char	*trim_end_str(char *str, ssize_t pos)
+{
+	ssize_t	i;
+	char	*dest;
+
+	i = 0;
+	dest = (char *)malloc((pos + 1) * sizeof(char));
+	if (!dest)
+		return (NULL);
+	while (i < pos)
+	{
+		dest[i] = str[i];
+		i++;
+	}
+	dest[i] = 0;
+	return (dest);
+}
+
+ssize_t	find_target(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != 0)
+	{
+		if (str[i] == '\n')
+			return (i + 1);
+		i++;
+	}
+	return (i);
+}
