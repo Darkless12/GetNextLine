@@ -6,32 +6,32 @@
 /*   By: darkless12 <darkless12@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 13:41:39 by ddiogo-f          #+#    #+#             */
-/*   Updated: 2024/11/22 17:50:28 by darkless12       ###   ########.fr       */
+/*   Updated: 2024/11/24 21:00:53 by darkless12       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 
-char	*strjoin_gnl(char const *line, char const *buffer, int pos)
+char	*strjoin_gnl(char const *line, char const *buffer, int excess)
 {
 	int		size;
 	char	*temp;
 
-	size = strlen_gnl(line) + strlen_gnl(buffer);
-	temp = (char *)malloc((size + 1 - pos) * sizeof(char));
+	size = strlen_gnl(line) + strlen_gnl(buffer) + excess;
+	temp = (char *)malloc((size + 1) * sizeof(char));
 	if (temp == NULL)
 		return (NULL);
 	temp[0] = 0;
 	strlcat_gnl(temp, line, strlen_gnl(line) + 1);
-	strlcat_gnl(temp, buffer, size + 1 - pos);
+	strlcat_gnl(temp, buffer, size + 1);
 	return (temp);
 }
 
-ssize_t	strlcat_gnl(char *dest, const char *src, ssize_t size)
+size_t	strlcat_gnl(char *dest, const char *src, size_t size)
 {
-	ssize_t	i;
-	ssize_t	j;
+	size_t	i;
+	size_t	j;
 
 	i = strlen_gnl(dest);
 	if (size <= i)
@@ -47,9 +47,9 @@ ssize_t	strlcat_gnl(char *dest, const char *src, ssize_t size)
 	return (strlen_gnl(dest) + strlen_gnl(&src[j]));
 }
 
-ssize_t	strlen_gnl(const char *str)
+size_t	strlen_gnl(const char *str)
 {
-	ssize_t	i;
+	size_t	i;
 
 	i = 0;
 	while (str && str[i] != 0)
@@ -57,25 +57,22 @@ ssize_t	strlen_gnl(const char *str)
 	return (i);
 }
 
-char	*trim_end_str(char *str, ssize_t pos)
+void	*memcpy_gnl(void *dest, const void *src, size_t n)
 {
-	ssize_t	i;
-	char	*dest;
+	size_t	i;
 
 	i = 0;
-	dest = (char *)malloc((pos + 1) * sizeof(char));
-	if (!dest)
+	if (!dest && !src && n > 0)
 		return (NULL);
-	while (i < pos)
+	while (i < n)
 	{
-		dest[i] = str[i];
+		((unsigned char *)dest)[i] = ((const unsigned char *)src)[i];
 		i++;
 	}
-	dest[i] = 0;
 	return (dest);
 }
 
-ssize_t	find_target(char *str)
+size_t	find_target(char *str)
 {
 	int	i;
 
@@ -83,7 +80,7 @@ ssize_t	find_target(char *str)
 	while (str[i] != 0)
 	{
 		if (str[i] == '\n')
-			return (i);
+			return (i + 1);
 		i++;
 	}
 	return (i);

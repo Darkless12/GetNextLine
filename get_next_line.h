@@ -6,7 +6,7 @@
 /*   By: darkless12 <darkless12@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 13:35:54 by ddiogo-f          #+#    #+#             */
-/*   Updated: 2024/11/22 17:50:27 by darkless12       ###   ########.fr       */
+/*   Updated: 2024/11/24 20:51:37 by darkless12       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@
 #  define BUFFER_SIZE 4
 # endif
 
-char	*trim_end_str(char *str, ssize_t pos);
 char	*get_next_line(int fd);
 char	*strjoin_gnl(char const *line, char const *buffer, int pos);
-ssize_t	strlcat_gnl(char *temp, const char *src, ssize_t size);
-ssize_t	strlen_gnl(const char *str);
-ssize_t	find_target(char *str);
+size_t	strlcat_gnl(char *temp, const char *src, size_t size);
+size_t	strlen_gnl(const char *str);
+size_t	find_target(char *str);
+void	*memcpy_gnl(void *dest, const void *src, size_t n);
 
 #endif

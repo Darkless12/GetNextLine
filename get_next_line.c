@@ -6,7 +6,7 @@
 /*   By: darkless12 <darkless12@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 13:34:10 by ddiogo-f          #+#    #+#             */
-/*   Updated: 2024/11/22 17:50:25 by darkless12       ###   ########.fr       */
+/*   Updated: 2024/11/24 21:03:16 by darkless12       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ char	*get_next_line(int fd)
 	static char	buffer[FOPEN_MAX][BUFFER_SIZE + 1];
 	char		*line;
 	char		*temp;
-	ssize_t		pos;
-	ssize_t		n_bytes;
+	int		pos;
+	int		n_bytes;
 
 	line = NULL;
 	pos =  find_target(buffer[fd]);
-	printf("1st pos %ld", pos);
-	if (buffer[fd][pos] == '\n')
+	if (buffer[fd][0] != 0)
 	{
-		printf("found \\n %s", buffer);
-		temp = strjoin_gnl(line, &buffer[fd][pos], 0);
-		printf("temp is %s", temp);
+		memcpy_gnl(buffer[fd], &buffer[fd][pos], BUFFER_SIZE - pos);
+		buffer[fd][BUFFER_SIZE - pos] = 0;
+		pos =  find_target(buffer[fd]);
+		temp = strjoin_gnl(line, buffer[fd], (pos - BUFFER_SIZE) * -1);
 		if (line)
 			free(line);
 		line = temp;
@@ -40,11 +40,11 @@ char	*get_next_line(int fd)
 		if (n_bytes == 0 && line)
 			return (line);
 		buffer[fd][n_bytes] = 0;
-		temp = strjoin_gnl(line, buffer[fd], BUFFER_SIZE - pos);
+		pos =  find_target(buffer[fd]);
+		temp = strjoin_gnl(line, buffer[fd], pos - n_bytes);
 		if (line)
 			free(line);
 		line = temp;
-		pos =  find_target(buffer[fd]);
 	}
 	return (line);
 }
