@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: darkless12 <darkless12@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ddiogo-f <ddiogo-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 13:41:39 by ddiogo-f          #+#    #+#             */
-/*   Updated: 2024/11/24 21:00:53 by darkless12       ###   ########.fr       */
+/*   Updated: 2024/11/25 14:14:50 by ddiogo-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,8 @@ size_t	find_target(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] != 0)
+	while (str[i] != 0 && str[i] != '\n')
 	{
-		if (str[i] == '\n')
-			return (i + 1);
 		i++;
 	}
 	return (i);

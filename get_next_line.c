@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: darkless12 <darkless12@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ddiogo-f <ddiogo-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 13:34:10 by ddiogo-f          #+#    #+#             */
-/*   Updated: 2024/11/24 21:03:16 by darkless12       ###   ########.fr       */
+/*   Updated: 2024/11/25 15:59:58 by ddiogo-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,32 @@ char	*get_next_line(int fd)
 	pos =  find_target(buffer[fd]);
 	if (buffer[fd][0] != 0)
 	{
-		memcpy_gnl(buffer[fd], &buffer[fd][pos], BUFFER_SIZE - pos);
-		buffer[fd][BUFFER_SIZE - pos] = 0;
+		memcpy_gnl(buffer[fd], &buffer[fd][pos + 1], BUFFER_SIZE - (pos + 1));
+		buffer[fd][BUFFER_SIZE - (pos + 1)] = '\0';
 		pos =  find_target(buffer[fd]);
-		temp = strjoin_gnl(line, buffer[fd], (pos - BUFFER_SIZE) * -1);
+		temp = strjoin_gnl(line, buffer[fd], pos + 1);
 		if (line)
 			free(line);
 		line = temp;
+		if (buffer[fd][pos] == '\n')
+			return (line);
 	}
-	while (buffer[fd][pos] == '\0')
+	while (buffer[fd][pos] != '\n')
 	{
 		n_bytes = read(fd, buffer[fd], BUFFER_SIZE);
-		if (n_bytes == -1)
+		if (n_bytes == -1 || (n_bytes == 0 && strlen_gnl(line) == 0))
 			return (NULL);
-		if (n_bytes == 0 && line)
+		if (n_bytes == 0 && strlen_gnl(line) > 0)
 			return (line);
 		buffer[fd][n_bytes] = 0;
 		pos =  find_target(buffer[fd]);
+		if (buffer[fd][pos] == '\n')
+			pos++;
 		temp = strjoin_gnl(line, buffer[fd], pos - n_bytes);
 		if (line)
 			free(line);
 		line = temp;
+		pos =  find_target(buffer[fd]);
 	}
 	return (line);
 }
