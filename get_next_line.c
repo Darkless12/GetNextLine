@@ -6,11 +6,13 @@
 /*   By: ddiogo-f <ddiogo-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 13:34:10 by ddiogo-f          #+#    #+#             */
-/*   Updated: 2024/11/25 15:59:58 by ddiogo-f         ###   ########.fr       */
+/*   Updated: 2024/11/26 13:34:34 by ddiogo-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+
 
 char	*get_next_line(int fd)
 {
@@ -20,11 +22,13 @@ char	*get_next_line(int fd)
 	int		pos;
 	int		n_bytes;
 
+	if (fd < 0 || fd >= FOPEN_MAX || BUFFER_SIZE <= 0)
+    	return (NULL);
 	line = NULL;
 	pos =  find_target(buffer[fd]);
 	if (buffer[fd][0] != 0)
 	{
-		memcpy_gnl(buffer[fd], &buffer[fd][pos + 1], BUFFER_SIZE - (pos + 1));
+		clean_buffer(buffer[fd]);
 		buffer[fd][BUFFER_SIZE - (pos + 1)] = '\0';
 		pos =  find_target(buffer[fd]);
 		temp = strjoin_gnl(line, buffer[fd], pos + 1);
@@ -38,7 +42,10 @@ char	*get_next_line(int fd)
 	{
 		n_bytes = read(fd, buffer[fd], BUFFER_SIZE);
 		if (n_bytes == -1 || (n_bytes == 0 && strlen_gnl(line) == 0))
+		{
+			free(line);
 			return (NULL);
+		}
 		if (n_bytes == 0 && strlen_gnl(line) > 0)
 			return (line);
 		buffer[fd][n_bytes] = 0;

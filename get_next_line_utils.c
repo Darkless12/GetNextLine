@@ -6,7 +6,7 @@
 /*   By: ddiogo-f <ddiogo-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 13:41:39 by ddiogo-f          #+#    #+#             */
-/*   Updated: 2024/11/25 14:14:50 by ddiogo-f         ###   ########.fr       */
+/*   Updated: 2024/11/26 13:34:35 by ddiogo-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,27 @@ size_t	strlen_gnl(const char *str)
 	return (i);
 }
 
-void	*memcpy_gnl(void *dest, const void *src, size_t n)
+void clean_buffer(char buffer[BUFFER_SIZE + 1])
 {
-	size_t	i;
+	int i;
+	int	j;
+	int check;
 
 	i = 0;
-	if (!dest && !src && n > 0)
-		return (NULL);
-	while (i < n)
+	j =0 ;
+	check = 0;
+	while(i <= BUFFER_SIZE)
 	{
-		((unsigned char *)dest)[i] = ((const unsigned char *)src)[i];
+		if(check == 1)
+		{
+			buffer[j] = buffer[i];
+			j++;
+		}
+		if(buffer[i] == '\n')
+			check = 1;
+		buffer[i] = '\0';
 		i++;
 	}
-	return (dest);
 }
 
 size_t	find_target(char *str)

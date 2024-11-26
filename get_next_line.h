@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: darkless12 <darkless12@student.42.fr>      +#+  +:+       +#+        */
+/*   By: ddiogo-f <ddiogo-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 13:35:54 by ddiogo-f          #+#    #+#             */
-/*   Updated: 2024/11/24 20:51:37 by darkless12       ###   ########.fr       */
+/*   Updated: 2024/11/26 13:34:36 by ddiogo-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,5 @@ char	*strjoin_gnl(char const *line, char const *buffer, int pos);
 size_t	strlcat_gnl(char *temp, const char *src, size_t size);
 size_t	strlen_gnl(const char *str);
 size_t	find_target(char *str);
-void	*memcpy_gnl(void *dest, const void *src, size_t n);
-
+void	clean_buffer(char buffer[BUFFER_SIZE + 1]);
 #endif

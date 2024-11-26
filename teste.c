@@ -3,12 +3,12 @@
 int	main(void)
 {
 	int		fd1;
-	char	*str1 = "abcd";
-	/*int		fd2;
-	char	*str2 = "text_02";*/
+	char	*str1 = "empty";
+	//int		fd2;
+	//char	*str2 = "text_02";
 
 	fd1 = open(str1, O_RDONLY);
-	/*fd2 = open(str2, O_RDONLY);*/
+	//fd2 = open(str2, O_RDONLY);
 	if (fd1 == -1)
 	{
 		write(2, "File not found\n", 15);
