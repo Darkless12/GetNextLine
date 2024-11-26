@@ -6,7 +6,7 @@
 /*   By: ddiogo-f <ddiogo-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 13:34:10 by ddiogo-f          #+#    #+#             */
-/*   Updated: 2024/11/26 13:34:34 by ddiogo-f         ###   ########.fr       */
+/*   Updated: 2024/11/26 14:03:28 by ddiogo-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ char	*get_next_line(int fd)
 	if (buffer[fd][0] != 0)
 	{
 		clean_buffer(buffer[fd]);
-		buffer[fd][BUFFER_SIZE - (pos + 1)] = '\0';
 		pos =  find_target(buffer[fd]);
-		temp = strjoin_gnl(line, buffer[fd], pos + 1);
+		temp = strjoin_gnl(line, buffer[fd], pos - BUFFER_SIZE);
 		if (line)
 			free(line);
 		line = temp;
