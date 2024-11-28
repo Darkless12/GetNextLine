@@ -1,4 +1,5 @@
 #include "get_next_line.h"
+#include <stdio.h>
 
 int	main(void)
 {
@@ -27,5 +28,5 @@ int	main(void)
 	printf("%s", get_next_line(fd1));
 	printf("%s", get_next_line(fd2));
 	close(fd1);
-	//close(fd2);
+	close(fd2);
 }
