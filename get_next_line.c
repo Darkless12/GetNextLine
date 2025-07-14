@@ -6,7 +6,7 @@
 /*   By: ddiogo-f <ddiogo-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 13:34:10 by ddiogo-f          #+#    #+#             */
-/*   Updated: 2024/11/28 10:06:39 by ddiogo-f         ###   ########.fr       */
+/*   Updated: 2025/03/13 15:47:20 by ddiogo-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*get_next_line(int fd)
 		if (line)
 			free(line);
 		line = temp;
-		if (buffer[find_target(buffer - 1)] == '\n')
+		if (buffer[find_target(buffer)] == '\n')
 			return (line);
 	}
 	line = fill_buffer(buffer, fd, line);

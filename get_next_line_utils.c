@@ -6,7 +6,7 @@
 /*   By: ddiogo-f <ddiogo-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 13:41:39 by ddiogo-f          #+#    #+#             */
-/*   Updated: 2024/11/28 10:06:35 by ddiogo-f         ###   ########.fr       */
+/*   Updated: 2025/03/14 10:26:46 by ddiogo-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,20 @@ size_t	strlcat_gnl(char *dest, const char *src, size_t size)
 	return (find_target(dest) + find_target(&src[j]));
 }
 
+size_t	find_target(const char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str && str[i] != 0)
+	{
+		if (str[i] == '\n')
+			return (i + 1);
+		i++;
+	}
+	return (i);
+}
+
 void	clean_buffer(char buffer[BUFFER_SIZE + 1])
 {
 	int	i;
@@ -67,20 +81,6 @@ void	clean_buffer(char buffer[BUFFER_SIZE + 1])
 		buffer[i] = '\0';
 		i++;
 	}
-}
-
-size_t	find_target(const char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str && str[i] != 0)
-	{
-		if (str[i] == '\n')
-			return (i + 1);
-		i++;
-	}
-	return (i);
 }
 
 char	*fill_buffer(char buffer[BUFFER_SIZE + 1], int fd, char *line)
